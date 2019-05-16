@@ -14,6 +14,10 @@ class User extends Model {
     })
   }
 
+  books () {
+    return this.hasMany('App/Models/Book')
+  }
+
   tokens () {
     return this.hasMany('App/Models/Token')
   }
