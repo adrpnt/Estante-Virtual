@@ -2,19 +2,7 @@
 
 Aplicação para gerenciamento de um estante de livros.
 
-A Aplicação será composta por uma API, desenvolvida em [AdonisJS](https://adonisjs.com/).
-
-<!-- ![Example CLI running](img/example.gif) -->
-
-### Installing
-
-```
-$ clone https://github.com/adrpnt/estante-virtual
-$ cd estante-virtual/api
-$ npm install
-```
-
-### How to use
+A Aplicação será composta por uma API, desenvolvida em [AdonisJS](https://adonisjs.com/) e o frontend desenvolvido em [React](https://reactjs.org/).
 
 ## Contributing
 
