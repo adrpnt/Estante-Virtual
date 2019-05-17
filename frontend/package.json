@@ -1,15 +1,11 @@
 {
-  "name": "estante-virtual-frontend",
+  "name": "frontend",
   "version": "0.1.0",
   "description": "Estante Virtual project frontend",
   "homepage": "https://github.com/adrpnt/estante-virtual/tree/master/frontend",
   "author": "Adriano Vasconcelos",
   "license": "MIT",
   "private": true,
-  "keywords": [
-    "estante-virtual",
-    "livros"
-  ],
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -17,16 +13,17 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@rocketseat/unform": "^1.3.0",
     "axios": "^0.18.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
-    "styled-components": "^4.2.0"
+    "styled-components": "^4.2.0",
+    "yup": "^0.27.0"
   },
   "devDependencies": {
-    "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^6.2.1",
