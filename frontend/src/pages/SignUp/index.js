@@ -1,20 +1,36 @@
 import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
-import { Link } from 'react-router-dom';
+import * as Yup from 'yup';
 
-import './styles.css';
+import api from '../../services/api';
+
+import './styles.scss';
+
+const schema = Yup.object().shape({
+  name: Yup.string().required(),
+  email: Yup.string()
+    .email()
+    .required(),
+  password: Yup.string()
+    .min(6)
+    .required(),
+});
 
 class SignUp extends Component {
   state = {
-    name: '',
-    email: '',
-    password: '',
     error: '',
   };
 
-  handleSignUp = (event) => {
-    event.preventDefault();
-    alert('Eu vou te registrar');
+  handleSignUp = async (user) => {
+    try {
+      const { history } = this.props;
+
+      await api.post('/users', user);
+      history.push('/');
+    } catch (err) {
+      this.setState({ error: 'An error occurred while trying to register your account. T.T' });
+    }
   };
 
   render() {
@@ -22,26 +38,12 @@ class SignUp extends Component {
 
     return (
       <div className="container">
-        <Form onSubmit={this.handleSignUp}>
+        <Form className="signup-form" schema={schema} onSubmit={this.handleSignUp}>
           {error && <p>{error}</p>}
 
-          <input
-            type="text"
-            placeholder="Name"
-            onChange={event => this.setState({ name: event.target.value })}
-          />
-
-          <input
-            type="email"
-            placeholder="E-mail"
-            onChange={event => this.setState({ email: event.target.value })}
-          />
-
-          <input
-            type="password"
-            placeholder="Password"
-            onChange={event => this.setState({ password: event.target.value })}
-          />
+          <Input name="name" placeholder="Name" />
+          <Input name="email" placeholder="E-mail" />
+          <Input name="password" placeholder="Password" type="password" />
 
           <button type="submit">Register</button>
           <hr />
@@ -53,4 +55,4 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+export default withRouter(SignUp);
