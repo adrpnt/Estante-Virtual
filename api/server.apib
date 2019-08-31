@@ -58,10 +58,13 @@ You may register your book.
 Request containing the attributes below:
 
 + title (string, required) - The title
-+ author (string, required) - The author
-+ description (string) - The description
++ author (string) - The author
 + number_pages (string) - The number of pages
++ description (string) - The description
++ review (string) - The complete review about the book
 + cover (file) - The file that represents the book cover
++ rating (integer) - The rating about the book
++ status (enum) - The status ['READING', 'WANT_READ', 'READ', 'REREADING', 'ABANDONED']
 
 + Request
 
@@ -114,13 +117,16 @@ Show an especific Book.
 ### Update [PUT]
 
 Update an existing book.
-Request containing the attributes below:
+Request may containing the attributes below:
 
-+ title (string, required) - The title
-+ author (string, required) - The author
-+ description (string) - The description
++ title (string) - The title
++ author (string) - The author
 + number_pages (string) - The number of pages
++ description (string) - The description
++ review (string) - The complete review about the book
 + cover (file) - The file that represents the book cover
++ rating (integer) - The rating about the book
++ status (enum) - The status ['READING', 'WANT_READ', 'READ', 'REREADING', 'ABANDONED']
 
 + Parameters
 
