@@ -8,6 +8,10 @@ class Book extends Model {
     return `${Env.get('APP_URL')}/covers/${cover}`
   }
 
+  tags () {
+    return this.belongsToMany('App/Models/Tag')
+  }
+
   user () {
     return this.belongsTo('App/Models/User')
   }
