@@ -60,8 +60,7 @@ class BookController {
     ])
 
     const validation = await validateAll(data, {
-      title: 'required',
-      author: 'required'
+      title: 'required'
     })
 
     if (validation.fails()) {

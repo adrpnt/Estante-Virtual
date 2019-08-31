@@ -14,7 +14,7 @@ class BookSchema extends Schema {
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
       table.string('title').notNullable()
-      table.string('author').notNullable()
+      table.string('author').nullable()
       table.integer('number_pages').nullable()
       table.text('description').nullable()
       table.string('cover').nullable()
