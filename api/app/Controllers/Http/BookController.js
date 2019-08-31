@@ -88,6 +88,8 @@ class BookController {
     }
 
     await book.delete()
+
+    return response.send({ message: 'Book deleted.' })
   }
 
   async _processCoverUpload (request) {
