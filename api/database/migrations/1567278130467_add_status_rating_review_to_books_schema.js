@@ -10,7 +10,7 @@ class AddStatusRatingReviewToBooksSchema extends Schema {
         .nullable()
         .after('description')
       table
-        .text('rating')
+        .integer('rating')
         .nullable()
         .after('cover')
       table
