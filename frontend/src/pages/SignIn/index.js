@@ -4,32 +4,33 @@ import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
 import api from '../../services/api';
+import { login } from '../../services/auth';
 
 import Logo from '../../assets/logo.svg';
 
 const schema = Yup.object().shape({
-  name: Yup.string().required(),
   email: Yup.string()
     .email()
     .required(),
-  password: Yup.string()
-    .min(6)
-    .required(),
+  password: Yup.string().required(),
 });
 
-class SignUp extends Component {
+class SignIn extends Component {
   state = {
     error: '',
   };
 
-  handleSignUp = async (user) => {
+  handleSignIn = async (data) => {
     try {
       const { history } = this.props;
+      const response = await api.post('/sessions', data);
 
-      await api.post('/users', user);
-      history.push('/');
+      login(response.data.token);
+      history.push('/home');
     } catch (err) {
-      this.setState({ error: 'An error occurred while trying to register your account.' });
+      this.setState({
+        error: 'An error occurred while trying to login, check your credentials.',
+      });
     }
   };
 
@@ -38,23 +39,22 @@ class SignUp extends Component {
 
     return (
       <div className="container-form">
-        <Form schema={schema} onSubmit={this.handleSignUp}>
+        <Form schema={schema} onSubmit={this.handleSignIn}>
           <img src={Logo} alt="Estante Virtual Logo" />
 
           {error && <p>{error}</p>}
 
-          <Input name="name" placeholder="Name" />
           <Input name="email" placeholder="E-mail" />
           <Input name="password" placeholder="Password" type="password" />
 
-          <button type="submit">Register</button>
+          <button type="submit">Login</button>
           <hr />
 
-          <Link to="/">Login</Link>
+          <Link to="/signup">Register</Link>
         </Form>
       </div>
     );
   }
 }
 
-export default withRouter(SignUp);
+export default withRouter(SignIn);
