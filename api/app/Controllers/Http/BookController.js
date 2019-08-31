@@ -69,7 +69,7 @@ class BookController {
     }
 
     if (book.user_id !== auth.user.id) {
-      return response.unauthorized({ error: 'Not authorized' })
+      return response.unauthorized({ error: 'Not authorized.' })
     }
 
     const cover = (await this._processCoverUpload(request)) || book.cover
@@ -84,7 +84,7 @@ class BookController {
     const book = await Book.findOrFail(params.id)
 
     if (book.user_id !== auth.user.id) {
-      return response.unauthorized({ error: 'Not authorized' })
+      return response.unauthorized({ error: 'Not authorized.' })
     }
 
     await book.delete()
@@ -108,7 +108,7 @@ class BookController {
       return cover.error()
     }
 
-    return `tmp/uploads/covers/${cover.fileName}`
+    return cover.fileName
   }
 }
 
