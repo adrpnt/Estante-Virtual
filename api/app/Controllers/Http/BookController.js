@@ -14,7 +14,7 @@ class BookController {
 
   async store ({ auth, request }) {
     const { id } = auth.user
-    const data = request.all()
+    const data = request.post()
 
     const validation = await validateAll(data, {
       title: 'required'
@@ -46,7 +46,7 @@ class BookController {
 
   async update ({ auth, params, request, response }) {
     const book = await Book.findOrFail(params.id)
-    const data = request.all()
+    const data = request.post()
 
     if (book.user_id !== auth.user.id) {
       return response.unauthorized({ error: 'Not authorized.' })
