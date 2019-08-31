@@ -1,28 +1,28 @@
-# Adonis API application
+# Bookcase API
 
-This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
+> API developed with [AdonisJS](https://adonisjs.com/).
+> Documentation created with [API Blueprint](https://apiblueprint.org/) and [Aglio](https://github.com/danielgtaylor/aglio).
 
-1. Bodyparser
-2. Authentication
-3. CORS
-4. Lucid ORM
-5. Migrations and seeds
+### How to use
 
-## Setup
+Install the dependencies and start the server:
 
-Use the adonis command to install the blueprint
-
-```bash
-adonis new yardstick --api-only
+```
+yarn
+adonis serve --dev
 ```
 
-or manually clone the repo and then run `npm install`.
+### Generate/View the documentation
 
+Aglio is an API Blueprint renderer with theme support that outputs static HTML.
+To generate the documentation:
 
-### Migrations
+```
+aglio -i server.apib -o api.html
+```
 
-Run the following command to run startup migrations.
+Or to view the documentation running in a live preview server on http://localhost:3000/:
 
-```js
-adonis migration:run
+```
+aglio -i server.apib -s
 ```
