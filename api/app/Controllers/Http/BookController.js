@@ -7,7 +7,10 @@ const Book = use('App/Models/Book')
 
 class BookController {
   async index ({ auth }) {
-    const books = await auth.user.books().fetch()
+    const books = await auth.user
+      .books()
+      .with('tags')
+      .fetch()
 
     return books
   }
@@ -40,6 +43,8 @@ class BookController {
     if (book.user_id !== auth.user.id) {
       return response.unauthorized({ error: 'Not authorized' })
     }
+
+    await book.load('tags')
 
     return book
   }
