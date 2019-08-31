@@ -1,7 +1,6 @@
 # Bookcase API
 
 > API developed with [AdonisJS](https://adonisjs.com/).
-
 > Documentation created with [API Blueprint](https://apiblueprint.org/) and [Aglio](https://github.com/danielgtaylor/aglio).
 
 ### How to use
