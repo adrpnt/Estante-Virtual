@@ -27,3 +27,5 @@ Or to view the documentation running in a live preview server on http://localhos
 ```
 aglio -i server.apib -s
 ```
+
+_NOTE: insomnia schema is provided (see insomnia_schema.json file)_
