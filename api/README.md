@@ -1,6 +1,7 @@
 # Bookcase API
 
 > API developed with [AdonisJS](https://adonisjs.com/).
+
 > Documentation created with [API Blueprint](https://apiblueprint.org/) and [Aglio](https://github.com/danielgtaylor/aglio).
 
 ### How to use
@@ -15,6 +16,7 @@ adonis serve --dev
 ### Generate/View the documentation
 
 Aglio is an API Blueprint renderer with theme support that outputs static HTML.
+
 To generate the documentation:
 
 ```
