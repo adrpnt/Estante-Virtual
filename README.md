@@ -1,8 +1,8 @@
 # Estante-Virtual
 
-Aplicação para gerenciamento de um estante de livros.
+Application for managing a bookcase.
 
-A Aplicação será composta por uma API, desenvolvida em [AdonisJS](https://adonisjs.com/) e o frontend desenvolvido em [React](https://reactjs.org/).
+The application will consist of an API developed in [AdonisJS](https://adonisjs.com/) and the frontend developed in [React](https://reactjs.org/).
 
 ## Contributing
 
