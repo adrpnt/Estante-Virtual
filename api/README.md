@@ -3,12 +3,20 @@
 > API developed with [AdonisJS](https://adonisjs.com/).
 > Documentation created with [API Blueprint](https://apiblueprint.org/) and [Aglio](https://github.com/danielgtaylor/aglio).
 
-### How to use
+## Getting Started
 
-Install the dependencies and start the server:
-
-```
+```bash
+# install dependencies
 yarn
+```
+
+Copy .env.example and rename to .env
+
+```bash
+# run your migrations
+adonis migration:run
+
+# start the dev server
 adonis serve --dev
 ```
 
