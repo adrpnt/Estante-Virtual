@@ -12,4 +12,5 @@ Route.group(() => {
   Route.put('/users/:id', 'UserController.update')
 
   Route.resource('books', 'BookController').apiOnly()
+  Route.resource('tags', 'TagController').apiOnly()
 }).middleware(['auth'])

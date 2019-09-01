@@ -11,11 +11,13 @@ class BookTagSchema extends Schema {
         .unsigned()
         .references('id')
         .inTable('books')
+        .onDelete('CASCADE')
       table
         .integer('tag_id')
         .unsigned()
         .references('id')
         .inTable('tags')
+        .onDelete('CASCADE')
       table.timestamps()
     })
   }
