@@ -67,6 +67,7 @@ Request containing the attributes below:
 + cover (file) - The file that represents the book cover
 + rating (integer) - The rating about the book
 + status (enum) - The status ['READING', 'WANT_READ', 'READ', 'REREADING', 'ABANDONED']
++ tags (array) - ID's of the tags
 
 + Request
 
@@ -130,6 +131,7 @@ Request may containing the attributes below:
 + cover (file) - The file that represents the book cover
 + rating (integer) - The rating about the book
 + status (enum) - The status ['READING', 'WANT_READ', 'READ', 'REREADING', 'ABANDONED']
++ tags (array) - ID's of the tags
 
 + Parameters
 
@@ -152,7 +154,8 @@ Request may containing the attributes below:
             "description": "Bilbo Bolseiro é um hobbit que leva uma vida confortável e sem ambições, raramente aventurando-se para além de sua despensa ou sua adega. Mas seu contentamento é perturbado quando Gandalf, o mago, e uma companhia de anões batem em sua porta e levam-no para uma expedição.",
             "cover": "http://127.0.0.1:3333/covers/1567258600971.png",
             "created_at": "2019-05-17 20:37:11",
-            "updated_at": "2019-08-31 10:39:44"
+            "updated_at": "2019-08-31 10:39:44",
+            "tags": []
         }
 
 + Response 401 (application/json)
