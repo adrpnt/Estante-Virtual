@@ -7,17 +7,21 @@ class BookSchema extends Schema {
     this.create('books', table => {
       table.increments()
       table
+        .integer('cover_id')
+        .unsigned()
+        .references('id')
+        .inTable('covers')
+        .nullable()
+      table
         .integer('user_id')
         .unsigned()
         .references('id')
         .inTable('users')
-        .onUpdate('CASCADE')
         .onDelete('CASCADE')
       table.string('title').notNullable()
       table.string('author').nullable()
       table.integer('number_pages').nullable()
       table.text('description').nullable()
-      table.string('cover').nullable()
       table.timestamps()
     })
   }

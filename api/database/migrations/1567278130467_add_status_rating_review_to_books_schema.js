@@ -9,10 +9,7 @@ class AddStatusRatingReviewToBooksSchema extends Schema {
         .text('review')
         .nullable()
         .after('description')
-      table
-        .integer('rating')
-        .nullable()
-        .after('cover')
+      table.integer('rating').nullable()
       table
         .enu('status', [
           'READING',
