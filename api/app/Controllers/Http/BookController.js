@@ -17,7 +17,16 @@ class BookController {
 
   async store ({ auth, request }) {
     const { id } = auth.user
-    const data = request.post()
+    const { tags } = request.post()
+    const data = request.only([
+      'title',
+      'author',
+      'number_pages',
+      'description',
+      'review',
+      'rating',
+      'status'
+    ])
 
     const validation = await validateAll(data, {
       title: 'required'
@@ -33,6 +42,11 @@ class BookController {
       cover,
       user_id: id
     })
+
+    if (tags && tags.length > 0) {
+      await book.tags().sync(tags)
+      await book.load('tags')
+    }
 
     return book
   }
@@ -51,7 +65,16 @@ class BookController {
 
   async update ({ auth, params, request, response }) {
     const book = await Book.findOrFail(params.id)
-    const data = request.post()
+    const { tags } = request.post()
+    const data = request.only([
+      'title',
+      'author',
+      'number_pages',
+      'description',
+      'review',
+      'rating',
+      'status'
+    ])
 
     if (book.user_id !== auth.user.id) {
       return response.unauthorized({ error: 'Not authorized.' })
@@ -61,6 +84,11 @@ class BookController {
 
     book.merge({ ...data, cover })
     await book.save()
+
+    if (tags && tags.length > 0) {
+      await book.tags().sync(tags)
+      await book.load('tags')
+    }
 
     return book
   }
