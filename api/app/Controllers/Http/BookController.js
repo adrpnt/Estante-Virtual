@@ -2,6 +2,7 @@
 
 const { validateAll } = use('Validator')
 
+const Drive = use('Drive')
 const Helpers = use('Helpers')
 const Book = use('App/Models/Book')
 
@@ -9,6 +10,7 @@ class BookController {
   async index ({ auth }) {
     const books = await auth.user
       .books()
+      .with('cover')
       .with('tags')
       .fetch()
 
@@ -17,16 +19,8 @@ class BookController {
 
   async store ({ auth, request }) {
     const { id } = auth.user
-    const { tags } = request.post()
-    const data = request.only([
-      'title',
-      'author',
-      'number_pages',
-      'description',
-      'review',
-      'rating',
-      'status'
-    ])
+    const tags = request.input('tags')
+    const data = request.except(['tags'])
 
     const validation = await validateAll(data, {
       title: 'required'
@@ -36,10 +30,8 @@ class BookController {
       return validation.messages()
     }
 
-    const cover = await this._processCoverUpload(request)
     const book = await Book.create({
       ...data,
-      cover,
       user_id: id
     })
 
@@ -58,31 +50,21 @@ class BookController {
       return response.unauthorized({ error: 'Not authorized' })
     }
 
-    await book.load('tags')
+    await book.loadMany(['cover', 'tags'])
 
     return book
   }
 
   async update ({ auth, params, request, response }) {
     const book = await Book.findOrFail(params.id)
-    const { tags } = request.post()
-    const data = request.only([
-      'title',
-      'author',
-      'number_pages',
-      'description',
-      'review',
-      'rating',
-      'status'
-    ])
+    const tags = request.input('tags')
+    const data = request.except(['tags'])
 
     if (book.user_id !== auth.user.id) {
       return response.unauthorized({ error: 'Not authorized.' })
     }
 
-    const cover = (await this._processCoverUpload(request)) || book.cover
-
-    book.merge({ ...data, cover })
+    book.merge(data)
     await book.save()
 
     if (tags && tags.length > 0) {
@@ -95,35 +77,17 @@ class BookController {
 
   async destroy ({ auth, params, response }) {
     const book = await Book.findOrFail(params.id)
+    const cover = await book.cover().fetch()
+    const coverPath = Helpers.tmpPath(`uploads/covers/${cover.file}`)
 
     if (book.user_id !== auth.user.id) {
       return response.unauthorized({ error: 'Not authorized.' })
     }
 
+    await Drive.delete(coverPath)
     await book.delete()
 
     return response.send({ message: 'Book deleted.' })
-  }
-
-  async _processCoverUpload (request) {
-    if (!request.file('cover') || !request.file('cover').size > 0) {
-      return null
-    }
-
-    const cover = request.file('cover', {
-      types: ['image'],
-      size: '2mb'
-    })
-
-    await cover.move(Helpers.tmpPath('uploads/covers'), {
-      name: `${new Date().getTime()}.${cover.subtype}`
-    })
-
-    if (!cover.moved()) {
-      return cover.error()
-    }
-
-    return cover.fileName
   }
 }
 
