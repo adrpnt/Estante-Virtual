@@ -5,7 +5,6 @@ const Schema = use('Schema')
 class BookTagSchema extends Schema {
   up () {
     this.create('book_tag', table => {
-      table.increments()
       table
         .integer('book_id')
         .unsigned()
@@ -18,7 +17,6 @@ class BookTagSchema extends Schema {
         .references('id')
         .inTable('tags')
         .onDelete('CASCADE')
-      table.timestamps()
     })
   }
 

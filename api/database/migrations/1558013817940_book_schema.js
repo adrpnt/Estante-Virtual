@@ -7,12 +7,6 @@ class BookSchema extends Schema {
     this.create('books', table => {
       table.increments()
       table
-        .integer('cover_id')
-        .unsigned()
-        .references('id')
-        .inTable('covers')
-        .nullable()
-      table
         .integer('user_id')
         .unsigned()
         .references('id')
