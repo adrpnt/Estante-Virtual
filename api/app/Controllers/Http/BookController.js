@@ -78,13 +78,15 @@ class BookController {
   async destroy ({ auth, params, response }) {
     const book = await Book.findOrFail(params.id)
     const cover = await book.cover().fetch()
-    const coverPath = Helpers.tmpPath(`uploads/covers/${cover.file}`)
 
     if (book.user_id !== auth.user.id) {
       return response.unauthorized({ error: 'Not authorized.' })
     }
 
-    await Drive.delete(coverPath)
+    if (cover) {
+      await Drive.delete(Helpers.tmpPath(`uploads/covers/${cover.file}`))
+    }
+
     await book.delete()
 
     return response.send({ message: 'Book deleted.' })
