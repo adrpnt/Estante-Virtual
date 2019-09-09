@@ -57,11 +57,12 @@ test('create a book', async ({ assert, client, user }) => {
     .end()
 
   const books = await Book.all()
+  const booksCount = books.toJSON().length
 
   response.assertStatus(200)
   response.assertJSONSubset(data)
 
-  assert.equal(books.toJSON().length, 2)
+  assert.equal(booksCount, 2)
 })
 
 test('get a specific book', async ({ client, user }) => {
@@ -88,15 +89,20 @@ test('update a book', async ({ client, user }) => {
   response.assertJSONSubset(data)
 })
 
-test('delete a book', async ({ client, user }) => {
+test('delete a book', async ({ assert, client, user }) => {
   const book = await Book.find(1)
   const response = await client
     .delete(`/books/${book.id}`)
     .loginVia(user, 'jwt')
     .end()
 
+  const books = await Book.all()
+  const booksCount = books.toJSON().length
+
   response.assertStatus(200)
   response.assertJSON({
     message: 'Book deleted.'
   })
+
+  assert.equal(booksCount, 0)
 })
