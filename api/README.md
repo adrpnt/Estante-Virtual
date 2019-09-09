@@ -13,14 +13,21 @@ yarn
 Copy .env.example and rename to .env
 
 ```bash
-# run your migrations
+# run migrations
 adonis migration:run
 
 # start the dev server
 adonis serve --dev
 ```
 
-### Generate/View the documentation
+## Testing the API
+
+```bash
+# run command
+adonis test
+```
+
+## Generating/Viewing the documentation
 
 Aglio is an API Blueprint renderer with theme support that outputs static HTML.
 
