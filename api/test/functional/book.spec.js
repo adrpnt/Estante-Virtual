@@ -1,7 +1,6 @@
 'use strict'
 
-const suite = use('Test/Suite')('Book')
-const { test, trait } = suite
+const { test, trait, before } = use('Test/Suite')('Book')
 
 const Factory = use('Factory')
 
@@ -19,7 +18,7 @@ trait(suite => {
   }))
 })
 
-suite.before(async () => {
+before(async () => {
   await Factory.model('App/Models/User').create({
     name: 'Test User',
     email: 'testuser@gmail.com',
@@ -33,7 +32,7 @@ suite.before(async () => {
   })
 })
 
-test('get a list of all books', async ({ client, user }) => {
+test('it should get a list with all books', async ({ client, user }) => {
   const response = await client
     .get('/books')
     .loginVia(user, 'jwt')
@@ -48,7 +47,7 @@ test('get a list of all books', async ({ client, user }) => {
   ])
 })
 
-test('create a book', async ({ assert, client, user }) => {
+test('it should create a book', async ({ assert, client, user }) => {
   const data = { title: 'O Silmarillion', author: 'J. R. R. Tolkien' }
   const response = await client
     .post('/books')
@@ -65,7 +64,7 @@ test('create a book', async ({ assert, client, user }) => {
   assert.equal(booksCount, 2)
 })
 
-test('get a specific book', async ({ client, user }) => {
+test('it should get a specific book', async ({ client, user }) => {
   const book = await Book.find(1)
   const response = await client
     .get(`/books/${book.id}`)
@@ -76,7 +75,7 @@ test('get a specific book', async ({ client, user }) => {
   response.assertJSONSubset(book.toJSON())
 })
 
-test('update a book', async ({ client, user }) => {
+test('it should update a book', async ({ client, user }) => {
   const book = await Book.find(1)
   const data = { number_pages: '297' }
   const response = await client
@@ -89,7 +88,7 @@ test('update a book', async ({ client, user }) => {
   response.assertJSONSubset(data)
 })
 
-test('delete a book', async ({ assert, client, user }) => {
+test('it should delete a book', async ({ assert, client, user }) => {
   const book = await Book.find(1)
   const response = await client
     .delete(`/books/${book.id}`)
